@@ -5,11 +5,15 @@
 
 from flask import Flask, request, jsonify
 import joblib
+import pandas as pd
 
 app = Flask(__name__)
 
-# Charger le modèle pré-entraîné
-model = joblib.load('modeleIMDB.joblib')
+# Charger le modèle depuis le fichier
+model = joblib.load("../model/modeleIMDB.joblib")
+
+
+
 
 @app.route('/')
 def home():
