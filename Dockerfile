@@ -10,5 +10,5 @@ RUN git clone https://github.com/AntoanetaStoyanova/PROJECT-IMBD.git
 
 EXPOSE 8080
 
-ENTRYPOINT ["python", "API/code_API_Streamlit.py"]
+ENTRYPOINT ["python", "code_API_Streamlit.py"]
 
