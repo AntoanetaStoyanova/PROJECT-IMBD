@@ -1,6 +1,9 @@
 docker build . -t projetimdb
+
 docker run -it -p 8501:8501/tcp projetimdb: latest
-python 
+
+
+dockerfile :
 FROM python:3
 
 WORKDIR /Project_IMBD
