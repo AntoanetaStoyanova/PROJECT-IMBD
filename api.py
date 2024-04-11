@@ -10,7 +10,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Charger le modèle depuis le fichier
-model = joblib.load("../model/modeleIMDB.joblib")
+model = joblib.load("modeleIMDB.joblib")
 
 
 

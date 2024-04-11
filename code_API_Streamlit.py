@@ -9,7 +9,7 @@ st.set_page_config(page_title="Prédiction film IMDB")
 
 st.title("Prédiction de note IMDB de film")
 
-movie_data = pd.read_csv("../Datas/5000_movie_correction.csv")
+movie_data = pd.read_csv("5000_movie_correction.csv")
 
 
 # Créer la liste des langues uniques
