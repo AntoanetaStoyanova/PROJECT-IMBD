@@ -9,7 +9,7 @@ import joblib
 app = Flask(__name__)
 
 # Charger le modèle pré-entraîné
-model = joblib.load('chemin_vers_modeleIMDB.joblib')
+model = joblib.load('modeleIMDB.joblib')
 
 @app.route('/')
 def home():
