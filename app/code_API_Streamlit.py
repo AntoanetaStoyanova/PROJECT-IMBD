@@ -2,6 +2,18 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
+from joblib import load
+
+
+# Charger le modèle
+modele_charge = load('model/modeleIMDB.joblib')
+
+# Fonction pour prédire les scores IMDB
+def predict_imdb_score(features):
+    # Effectuer la prédiction
+    prediction = modele_charge.predict([features])
+    return prediction[0]
+
 
 # Définir le titre de la page
 st.set_page_config(page_title="Prédiction film IMDB")
@@ -62,29 +74,12 @@ if not filtered_data.empty:
                     st.write(f"IMDB note réel: {row['imdb_score']}")
 
 
-                # Préparer les données pour la prédiction
-                features = {
-                    'num_critic_for_reviews': filtered_data['num_critic_for_reviews'].mean(),
-                    'director_fb_likes': filtered_data['director_fb_likes'].mean(),
-                    'cast_total_fb_likes': filtered_data['cast_total_fb_likes'].mean(),
-                    'gross': filtered_data['gross'].mean(),
-                    'num_user_for_reviews': filtered_data['num_user_for_reviews'].mean(),
-                    'budget': filtered_data['budget'].mean(),
-                    'duration': filtered_data['duration'].mean(),
-                    'title_year': filtered_data['title_year'].mean(),
-                    'movie_fb_likes': filtered_data['movie_fb_likes'].mean()
-                }
+                # Bouton pour prédire le score IMDB
+                    if st.button("Prédire IMDB note"):
+                        features = [row['num_critic_for_reviews'], row['director_fb_likes'], row['cast_total_fb_likes'], row['gross'], 
+                                    row['num_user_for_reviews'], row['budget'], row['duration'], row['title_year'], row['movie_fb_likes']]
+                        predicted_score = predict_imdb_score(features)
+                        st.write(f"IMDB note prédite: {predicted_score:.2f}")
 
-                if st.button("Prédiction de note IMDB"):
-                    # Envoyer la requête à l'API Flask
-                    response = requests.post('http://localhost:5000/predict', json=features)
-                    
-                    if response.status_code == 200:
-                        prediction = response.json()['prediction']
-                        st.write(f"La prédiction de note IMDB est : {prediction}")
-                    else:
-                        st.write("Une erreur est survenue lors de la prédiction.")
-            else:
-                st.write("Aucun film correspondant aux critères sélectionnés.")
 else:
     st.write("Aucun film correspondant à la langue sélectionnée.")

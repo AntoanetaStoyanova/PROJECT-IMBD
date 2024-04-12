@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y python3
 
 COPY . /app
 
-EXPOSE 8080
+EXPOSE 8501
 
 ENTRYPOINT ["streamlit", "run", "code_API_Streamlit.py"]
+
 
